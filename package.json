@@ -1,6 +1,6 @@
 {
   "name": "@wydforgs/wydocmost",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Command-line client for Docmost",
   "repository": {
     "type": "git",
