@@ -1,0 +1,42 @@
+{
+  "name": "wydocmost",
+  "version": "0.1.0",
+  "description": "Command-line client for Docmost",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fajrulaulia/wydocmost.git"
+  },
+  "homepage": "https://github.com/fajrulaulia/wydocmost#readme",
+  "bugs": {
+    "url": "https://github.com/fajrulaulia/wydocmost/issues"
+  },
+  "type": "module",
+  "files": [
+    "README.md",
+    "SECURITY.md",
+    "dist/cli.js",
+    "dist/credentials.js",
+    "dist/docmost.js",
+    "dist/version.js"
+  ],
+  "bin": {
+    "wydocmost": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm test",
+    "start": "node dist/cli.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@napi-rs/keyring": "^2.1.0"
+  }
+}

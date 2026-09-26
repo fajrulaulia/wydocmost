@@ -1,0 +1,47 @@
+# Security Policy
+
+## Supported versions
+
+Only the latest published version of `wydocmost` receives security fixes. Older
+versions are unsupported; update to the latest release before reporting a
+security issue.
+
+The CLI requires Node.js 20 or newer. It connects to a Docmost instance using
+that instance's HTTP API. Compatibility with Docmost releases can vary; include
+the Docmost version and deployment details in a report, but do not include
+credentials or session tokens.
+
+## Reporting a vulnerability
+
+Please report suspected vulnerabilities privately to the project maintainer.
+If this project is hosted on GitHub and private vulnerability reporting is
+enabled, use the repository's **Report a vulnerability** feature. Otherwise,
+use a private contact channel listed by the maintainer. Do not post exploit
+details, credentials, or tokens in a public issue or discussion.
+
+Include the affected package version, Node.js version, Docmost version, impact,
+and steps to reproduce. Redact hostnames or other identifying information when
+they are sensitive. The maintainer will acknowledge the report and coordinate
+a fix and disclosure timeline with the reporter.
+
+## Local credentials
+
+`wydocmost login` offers the operating system keychain or a JSON file for the
+Docmost session token. Keychain storage is selected by default. If the system
+credential store cannot save the token, the CLI warns and falls back to JSON.
+The JSON file is `credentials.json` under the configured credentials
+directory. The default is `~/.config/wydocmost/credentials.json`;
+`XDG_CONFIG_HOME`, `--config-dir`, or `WYDOCMOST_CONFIG_DIR` can select another
+location. The CLI requests file permissions of `0600` and creates a new
+credentials directory with permissions of `0700` where supported by the
+operating system. With keychain storage, the JSON file contains metadata only,
+not the token. Keep the credentials directory private, especially when
+choosing a custom path. The password is not stored.
+
+If a token may have been exposed, revoke the session from Docmost if available,
+remove the local credentials file, and run `wydocmost login` to save a new
+session.
+
+Do not commit `credentials.json`, environment files, or other secrets. The
+repository ignores common credential and environment file names, and the npm
+package includes only its README, manifest, and compiled CLI files.
