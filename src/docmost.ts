@@ -41,9 +41,80 @@ export class Docmost {
   space(id: string) { return this.request("/spaces/info", { spaceId: id }); }
   page(id: string) { return this.request("/pages/info", { pageId: id }); }
   search(query: string, spaceId?: string, limit?: number) { return this.request("/search", { query, ...(spaceId ? { spaceId } : {}), ...(limit !== undefined ? { limit } : {}) }); }
-  async pages(spaceId: string, limit?: number, cursor?: string) {
+  async pages(spaceId: string, limit?: number, cursor?: string): Promise<unknown> {
     const space = await this.space(spaceId) as Json;
     return this.request("/pages/sidebar-pages", { spaceId: space.id ?? spaceId, ...(limit !== undefined ? { limit } : {}), ...(cursor ? { cursor } : {}) });
+  }
+  async childPages(pageId: string, limit?: number, cursor?: string): Promise<unknown> {
+    return this.request("/pages/sidebar-pages", { pageId, ...(limit !== undefined ? { limit } : {}), ...(cursor ? { cursor } : {}) });
+  }
+  async allPages(fetchPage: (cursor?: string) => Promise<unknown>, initialCursor?: string): Promise<Json[]> {
+    const pages: Json[] = [];
+    const seenCursors = new Set<string>();
+    let cursor = initialCursor;
+    while (true) {
+      const result = await fetchPage(cursor) as Json;
+      const items = Array.isArray(result.items) ? result.items : [];
+      pages.push(...items.filter((item): item is Json => typeof item === "object" && item !== null));
+      const meta = result.meta as Json | undefined;
+      const nextCursor = typeof meta?.nextCursor === "string" ? meta.nextCursor : undefined;
+      if (!meta?.hasNextPage || !nextCursor || nextCursor === cursor || seenCursors.has(nextCursor)) break;
+      seenCursors.add(nextCursor);
+      cursor = nextCursor;
+    }
+    return pages;
+  }
+  async pageTree(root: { spaceId?: string; pageId?: string }, limit?: number, rootCursor?: string, includeContent = false): Promise<unknown> {
+    const seen = new Set<string>();
+    const rootSpaceId = root.spaceId
+      ? String(((await this.space(root.spaceId)) as Json).id ?? root.spaceId)
+      : undefined;
+    const buildChildren = async (parentPageId?: string, cursor?: string, parentPath: string[] = []): Promise<Json[]> => {
+      const fetchPage = (nextCursor?: string) => parentPageId
+        ? this.childPages(parentPageId, limit, nextCursor)
+        : this.request("/pages/sidebar-pages", { spaceId: rootSpaceId, ...(limit !== undefined ? { limit } : {}), ...(nextCursor ? { cursor: nextCursor } : {}) });
+      const rows = await this.allPages(fetchPage, cursor);
+
+      const nodes: Json[] = [];
+      for (const row of rows) {
+        const id = String(row.id ?? "");
+        if (!id || seen.has(id)) continue;
+        seen.add(id);
+        const title = String(row.title ?? "(untitled)");
+        const node: Json = {
+          id,
+          ...(row.slugId !== undefined ? { slugId: row.slugId } : {}),
+          title,
+          path: [...parentPath, title],
+          ...(row.parentPageId !== undefined ? { parentPageId: row.parentPageId } : {}),
+          ...(row.spaceId !== undefined ? { spaceId: row.spaceId } : {}),
+          children: row.hasChildren ? await buildChildren(id, undefined, [...parentPath, title]) : []
+        };
+        if (includeContent) {
+          const page = await this.page(id) as Json;
+          node.content = page.content;
+          if (page.title !== undefined) node.title = page.title;
+        }
+        nodes.push(node);
+      }
+      return nodes;
+    };
+
+    if (root.pageId) {
+      const page = await this.page(root.pageId) as Json;
+      const node: Json = {
+        id: String(page.id ?? root.pageId),
+        ...(page.slugId !== undefined ? { slugId: page.slugId } : {}),
+        title: String(page.title ?? "(untitled)"),
+        path: [String(page.title ?? "(untitled)")],
+        ...(page.parentPageId !== undefined ? { parentPageId: page.parentPageId } : {}),
+        ...(page.spaceId !== undefined ? { spaceId: page.spaceId } : {}),
+        ...(includeContent ? { content: page.content } : {}),
+        children: await buildChildren(String(page.id ?? root.pageId), undefined, [String(page.title ?? "(untitled)")])
+      };
+      return node;
+    }
+    return buildChildren(undefined, rootCursor);
   }
   updatePage(pageId: string, fields: { title?: string; icon?: string; content?: string }) {
     return this.request("/pages/update", { pageId, ...fields, ...(fields.content !== undefined ? { content: fields.content, format: "markdown", operation: "replace" } : {}) });

@@ -25,9 +25,11 @@
     "SECURITY.pt-BR.md",
     "SECURITY.ru.md",
     "SECURITY.zh-CN.md",
+    "skills/",
     "dist/cli.js",
     "dist/credentials.js",
     "dist/docmost.js",
+    "dist/mcp.js",
     "dist/version.js"
   ],
   "bin": {

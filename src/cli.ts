@@ -3,6 +3,7 @@ import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { saveCredentialsWithFallback, type CredentialStorage } from "./credentials.js";
 import { Docmost } from "./docmost.js";
+import { startMcpServer } from "./mcp.js";
 import { version } from "./version.js";
 
 async function fetchDocmost(url: string, init: RequestInit): Promise<Response> {
@@ -127,13 +128,17 @@ async function login(storageOption?: CredentialStorage) {
 const help = `Usage: wydocmost <command> [options]
 
 Commands:
+  mcp                                Start the MCP server over stdio (default)
   login                              Log in and save the session
   user                               Show the current user
   space list                         List spaces
   space get --id <space>             Show a space
-  space pages --id <space>           List pages in a space
+  space pages --id <space> [--recursive] [--include-content]
+                                     List pages, optionally including descendants
   search --query <text>              Search pages
   page get --id <page>               Show a page
+  page tree --id <page> [--include-content]
+                                     Show a page and all accessible descendants
   page create --space <id> --title <title> --content <markdown> [--parent <id>]
   page update --id <page> [--title <title>] [--icon <icon>] [--content <markdown>]
   page delete --id <page>            Delete a page
@@ -158,9 +163,14 @@ function parseOptions(args: string[]): Options {
   for (let i = 0; i < args.length; i++) {
     const key = args[i];
     if (!key.startsWith("--")) throw new Error(`Unexpected argument: ${key}`);
+    const name = key.slice(2).replaceAll("-", "_");
+    if (name === "recursive" || name === "include_content") {
+      if (name in options) throw new Error(`Option ${key} was provided more than once`);
+      options[name] = "true";
+      continue;
+    }
     const value = args[++i];
     if (!value || value.startsWith("--")) throw new Error(`Expected a value after ${key}`);
-    const name = key.slice(2).replaceAll("-", "_");
     if (name in options) throw new Error(`Option ${key} was provided more than once`);
     options[name] = value;
   }
@@ -183,7 +193,18 @@ async function main() {
   const parsed = applyGlobalOptions(process.argv.slice(2));
   const args = parsed.args;
   const [command, subcommand, ...rest] = args;
-  if (!command || command === "help" || command === "--help" || command === "-h") { console.log(help); return; }
+  if (!command) {
+    if (input.isTTY && output.isTTY) console.log(help);
+    else await startMcpServer();
+    return;
+  }
+  if (command === "mcp") {
+    if (args.length !== 1) throw new Error("mcp accepts --config-dir only");
+    if (parsed.storage) throw new Error("--storage can only be used with login");
+    await startMcpServer();
+    return;
+  }
+  if (command === "help" || command === "--help" || command === "-h") { console.log(help); return; }
   if (command === "--version" || command === "-v") { console.log(version); return; }
   if (command === "login") {
     if (args.length > 1) throw new Error("login accepts --storage and --config-dir only");
@@ -197,9 +218,14 @@ async function main() {
   if (command === "user" && !subcommand) return print(await api.user());
   if (command === "space" && subcommand === "list") return print(await api.spaces());
   if (command === "space" && subcommand === "get") return print(await api.space(required(options, "id")));
-  if (command === "space" && subcommand === "pages") return print(await api.pages(required(options, "id"), optionalLimit(options), options.cursor));
+  if (command === "space" && subcommand === "pages") {
+    if (options.include_content && !options.recursive) throw new Error("--include-content requires --recursive");
+    if (options.recursive) return print(await api.pageTree({ spaceId: required(options, "id") }, optionalLimit(options), options.cursor, Boolean(options.include_content)));
+    return print(await api.pages(required(options, "id"), optionalLimit(options), options.cursor));
+  }
   if (command === "search") return print(await api.search(required(options, "query"), options.space, optionalLimit(options)));
   if (command === "page" && subcommand === "get") return print(await api.page(required(options, "id")));
+  if (command === "page" && subcommand === "tree") return print(await api.pageTree({ pageId: required(options, "id") }, optionalLimit(options), options.cursor, Boolean(options.include_content)));
   if (command === "page" && subcommand === "create") return print(await api.createPage(required(options, "space"), required(options, "title"), required(options, "content"), options.parent));
   if (command === "page" && subcommand === "update") {
     const fields = { ...(options.title ? { title: options.title } : {}), ...(options.icon ? { icon: options.icon } : {}), ...(options.content !== undefined ? { content: options.content } : {}) };

@@ -3,9 +3,9 @@ name: wydocmost-docmost-cli
 description: Explore and work with a Docmost workspace through the wydocmost CLI when an AI agent has no Docmost MCP integration. Use for searching spaces and pages, reading content, and carrying out explicitly requested page or comment changes.
 ---
 
-# Use Docmost without MCP
+# Use Docmost from the CLI
 
-Use the `wydocmost` command-line client as the interface to Docmost. This is an agent instruction skill, not an MCP server: do not try to start a server, connect to an MCP endpoint, or invent API routes. The CLI makes authenticated requests to the configured Docmost workspace and prints API results as JSON.
+This skill covers direct shell use of the `wydocmost` command-line client. If the agent already has a dedicated wydocmost MCP connection, use its MCP tools and follow the MCP skill instead. Do not start an MCP stdio process as an ordinary shell command while using this CLI workflow. The CLI makes authenticated requests to the configured Docmost workspace and prints API results as JSON.
 
 ## Check the CLI and session
 
@@ -59,4 +59,4 @@ Deletion is irreversible through this CLI. Run `page delete` only when the user 
 
 ## Scope
 
-The CLI currently supports current-user lookup, listing and reading spaces, searching pages, listing pages, reading and creating/updating/deleting/duplicating/moving pages, page history, and listing/creating/updating comments. It does not provide a Docmost server, MCP protocol, arbitrary API access, or a general AI runtime. Use only commands shown by `wydocmost --help`.
+The CLI currently supports current-user lookup, listing and reading spaces, searching pages, listing pages, reading and creating/updating/deleting/duplicating/moving pages, page history, and listing/creating/updating comments. It does not provide arbitrary API access or a general AI runtime. Use only commands shown by `wydocmost --help`.
