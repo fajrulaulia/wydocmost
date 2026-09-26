@@ -45,6 +45,42 @@ Keep the credentials file private. Do not commit it, paste its contents into an 
 See [SECURITY.md](SECURITY.md) for supported versions and vulnerability
 reporting guidance.
 
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Use with AI agents (without MCP)
+
+This project includes an Agent Skill at [`.SKILL/SKILL.md`](.SKILL/SKILL.md). It teaches an AI coding agent to explore and operate a Docmost workspace through the `wydocmost` CLI. It is instruction text only: it does not install an MCP server or give an agent access to Docmost by itself. Install the CLI and log in first, and use an agent that has permission to run local shell commands.
+
+The `.SKILL` directory in this repository is the source copy. Most agents do not discover that directory automatically. For Codex CLI, OpenCode, and other agents that support the shared `.agents/skills` location, install it for your user with:
+
+```sh
+git clone https://github.com/fajrulaulia/wydocmost.git
+mkdir -p "$HOME/.agents/skills/wydocmost-docmost-cli"
+cp wydocmost/.SKILL/SKILL.md "$HOME/.agents/skills/wydocmost-docmost-cli/SKILL.md"
+```
+
+To make it available only in the current project instead, copy it into the standard project skill directory:
+
+```sh
+mkdir -p .agents/skills/wydocmost-docmost-cli
+cp /path/to/wydocmost/.SKILL/SKILL.md .agents/skills/wydocmost-docmost-cli/SKILL.md
+```
+
+Codex CLI and OpenCode can discover skills from `.agents/skills`. Ask the agent to use `wydocmost-docmost-cli`, or describe the Docmost task; the skill description helps the agent select it when relevant. In Codex, you can also browse available skills with `/skills` or invoke one by name. See the [Codex skills guide](https://developers.openai.com/plugins/concepts/skills) and [OpenCode skills guide](https://opencode.ai/docs/skills) for their current discovery and invocation behavior.
+
+For other agent tools, use their native Agent Skills directory. For example, GitHub Copilot CLI can install the source file as a project skill with `copilot skill add --project /path/to/wydocmost/.SKILL/SKILL.md`; Claude Code can use a copy under `.claude/skills/wydocmost-docmost-cli/SKILL.md`. See the [Copilot CLI skills guide](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills) for Copilot's supported locations and install command. Other Agent Skills-compatible tools may use a different discovery path or require you to enable the skill in their settings. Check that tool's documentation if the skill does not appear.
+
+After installing the skill, install and authenticate the CLI separately:
+
+```sh
+npm install --global @wydforgs/wydocmost
+wydocmost login
+```
+
+The agent uses its shell tool to run `wydocmost` commands and receives JSON output. Page or comment changes apply immediately, so review the task and the skill's mutation guidance before allowing the agent to make changes.
+
 ## Commands
 
 API results are printed as JSON. Quote values that contain spaces or Markdown.

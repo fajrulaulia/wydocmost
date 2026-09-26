@@ -45,3 +45,21 @@ session.
 Do not commit `credentials.json`, environment files, or other secrets. The
 repository ignores common credential and environment file names, and the npm
 package includes only its README, manifest, and compiled CLI files.
+
+## Personal data protection in Indonesia (UU PDP)
+
+Indonesia's Personal Data Protection Law, **Law No. 27 of 2022 (UU PDP)**, is
+in force. See the official [regulation record](https://peraturan.go.id/id/uu-no-27-tahun-2022)
+or the [official law text](https://peraturan.bpk.go.id/Details/229798/uu-no-27-tahun-2022).
+
+`wydocmost` stores Docmost session credentials locally and sends authenticated
+requests to the Docmost instance selected by the user. Keep the credentials
+directory private and do not share session tokens. Organizations and
+individuals using the CLI should assess their own processing activities and
+responsibilities under the UU PDP and any other applicable rules. This notice
+provides a reference only; it does not assert that a particular deployment or
+use of the CLI is compliant with the law.
+
+## License
+
+This project is distributed under the [MIT License](LICENSE).
