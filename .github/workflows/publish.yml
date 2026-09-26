@@ -36,6 +36,6 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
       - run: npm ci
-      - run: npm publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

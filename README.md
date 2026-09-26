@@ -12,14 +12,14 @@
 After the package is published to npm, install it globally:
 
 ```sh
-npm install --global wydocmost
+npm install --global @wydforgs/wydocmost
 wydocmost login
 ```
 
 Or use it without a global install:
 
 ```sh
-npx wydocmost login
+npx @wydforgs/wydocmost login
 ```
 
 The login prompts for the Docmost URL, email, password, and token storage. Password input is hidden. Choose the system keychain or a JSON file. The keychain is selected by default; if it is unavailable, the CLI warns and falls back to the JSON file. You can choose a storage method without the extra prompt using `--storage keychain` or `--storage file`:

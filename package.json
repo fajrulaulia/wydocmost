@@ -1,5 +1,5 @@
 {
-  "name": "wydocmost",
+  "name": "@wydforgs/wydocmost",
   "version": "0.1.0",
   "description": "Command-line client for Docmost",
   "repository": {
