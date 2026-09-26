@@ -1,5 +1,11 @@
 # Security Policy
 
+This security policy is available in 10 languages. English is the canonical
+version; translated copies are provided for convenience. If a translation
+differs from the English text, the English version controls.
+
+English | [Bahasa Indonesia](SECURITY.id.md) | [简体中文](SECURITY.zh-CN.md) | [हिन्दी](SECURITY.hi.md) | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [العربية](SECURITY.ar.md) | [বাংলা](SECURITY.bn.md) | [Português](SECURITY.pt-BR.md) | [Русский](SECURITY.ru.md)
+
 ## Supported versions
 
 Only the latest published version of `wydocmost` receives security fixes. Older
@@ -43,8 +49,9 @@ remove the local credentials file, and run `wydocmost login` to save a new
 session.
 
 Do not commit `credentials.json`, environment files, or other secrets. The
-repository ignores common credential and environment file names, and the npm
-package includes only its README, manifest, and compiled CLI files.
+repository ignores common credential and environment file names. The npm
+package includes the README, license, security policy documents, package
+manifest, and compiled CLI files; it does not include local credentials.
 
 ## Personal data protection in Indonesia (UU PDP)
 
