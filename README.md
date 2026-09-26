@@ -49,6 +49,10 @@ reporting guidance.
 
 This project is licensed under the [MIT License](LICENSE).
 
+## Support and legal notice
+
+The maintainer does not guarantee support, a response to every issue or vulnerability report, a fix, or a response or remediation timeline. The documentation is not legal advice and does not guarantee that a particular use complies with applicable law. Users and organizations are responsible for protecting their systems and credentials and assessing their own legal obligations, including under Indonesia's UU PDP where applicable. See [SECURITY.md](SECURITY.md) for details. Nothing in this notice waives rights or excludes duties or liability that applicable law does not permit to be waived or excluded.
+
 ## Use with AI agents (without MCP)
 
 This project includes an Agent Skill at [`.SKILL/SKILL.md`](.SKILL/SKILL.md). It teaches an AI coding agent to explore and operate a Docmost workspace through the `wydocmost` CLI. It is instruction text only: it does not install an MCP server or give an agent access to Docmost by itself. Install the CLI and log in first, and use an agent that has permission to run local shell commands.

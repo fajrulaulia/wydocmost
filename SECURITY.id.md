@@ -14,7 +14,7 @@ CLI memerlukan Node.js 20 atau yang lebih baru. CLI terhubung ke instance Docmos
 
 Laporkan dugaan kerentanan secara privat kepada pemelihara project. Jika project ini di-host di GitHub dan pelaporan kerentanan privat diaktifkan, gunakan fitur **Report a vulnerability** pada repositori. Jika tidak, gunakan kanal kontak privat yang dicantumkan pemelihara. Jangan memublikasikan detail eksploit, kredensial, atau token dalam issue atau diskusi publik.
 
-Sertakan versi paket yang terdampak, versi Node.js, versi Docmost, dampak, dan langkah reproduksi. Samarkan nama host atau informasi identitas lain jika sensitif. Pemelihara akan mengonfirmasi laporan dan berkoordinasi dengan pelapor mengenai perbaikan dan jadwal pengungkapan.
+Sertakan versi paket yang terdampak, versi Node.js, versi Docmost, dampak, dan langkah reproduksi. Samarkan nama host atau informasi identitas lain jika sensitif. Pemelihara dapat mengonfirmasi laporan dan berkoordinasi dengan pelapor mengenai perbaikan serta jadwal pengungkapan, tetapi tidak ada jaminan waktu respons atau penyelesaian.
 
 ## Kredensial lokal
 
@@ -33,3 +33,7 @@ Undang-Undang Republik Indonesia Nomor 27 Tahun 2022 tentang Pelindungan Data Pr
 ## Lisensi
 
 Project ini didistribusikan berdasarkan [Lisensi MIT](LICENSE).
+
+## Dukungan dan pemberitahuan hukum
+
+`wydocmost` disediakan sebagai perangkat lunak sumber terbuka berdasarkan Lisensi MIT; lihat [LICENSE](LICENSE) untuk ketentuan jaminan dan tanggung jawabnya. Pemelihara tidak menjamin dukungan, respons terhadap setiap issue atau laporan kerentanan, perbaikan, maupun jangka waktu respons atau penyelesaian. Dokumentasi ini bukan nasihat hukum dan tidak menjamin bahwa penggunaan tertentu mematuhi hukum. Pengguna dan organisasi bertanggung jawab menentukan kesesuaian CLI untuk penggunaan mereka, mengamankan sistem dan kredensial, serta menilai kewajiban hukum mereka sendiri, termasuk berdasarkan UU PDP jika berlaku. Pemberitahuan ini tidak dimaksudkan untuk mengesampingkan hak atau mengecualikan kewajiban maupun tanggung jawab yang menurut hukum yang berlaku tidak boleh dikesampingkan atau dikecualikan.

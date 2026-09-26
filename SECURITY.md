@@ -27,8 +27,9 @@ details, credentials, or tokens in a public issue or discussion.
 
 Include the affected package version, Node.js version, Docmost version, impact,
 and steps to reproduce. Redact hostnames or other identifying information when
-they are sensitive. The maintainer will acknowledge the report and coordinate
-a fix and disclosure timeline with the reporter.
+they are sensitive. The maintainer may acknowledge the report and coordinate
+a fix and disclosure timeline with the reporter, but no response or
+remediation timeline is guaranteed.
 
 ## Local credentials
 
@@ -70,3 +71,16 @@ use of the CLI is compliant with the law.
 ## License
 
 This project is distributed under the [MIT License](LICENSE).
+
+## Support and legal notice
+
+`wydocmost` is provided as open-source software under the MIT License; see
+[LICENSE](LICENSE) for its warranty and liability terms. The maintainer does
+not guarantee support, a response to every issue or vulnerability report, a
+fix, or a response or remediation timeline. This documentation is not legal
+advice and does not guarantee that a particular use complies with any law.
+Users and organizations are responsible for deciding whether the CLI is
+suitable for their use, protecting their systems and credentials, and
+assessing their own legal obligations, including under the UU PDP where
+applicable. Nothing in this notice purports to waive rights or exclude duties
+or liability that applicable law does not permit to be waived or excluded.

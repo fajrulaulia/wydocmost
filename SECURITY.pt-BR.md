@@ -14,7 +14,7 @@ A CLI requer Node.js 20 ou posterior. Ela se conecta a uma instância do Docmost
 
 Relate suspeitas de vulnerabilidade em particular ao mantenedor do projeto. Se o projeto estiver hospedado no GitHub e o envio privado de vulnerabilidades estiver habilitado, use o recurso **Report a vulnerability** do repositório. Caso contrário, use um canal privado de contato indicado pelo mantenedor. Não publique detalhes de exploração, credenciais ou tokens em issues ou discussões públicas.
 
-Inclua a versão do pacote afetada, as versões do Node.js e do Docmost, o impacto e as etapas para reproduzir o problema. Oculte nomes de host ou outras informações identificáveis quando forem sensíveis. O mantenedor confirmará o recebimento e combinará com quem relatou o problema o cronograma de correção e divulgação.
+Inclua a versão do pacote afetada, as versões do Node.js e do Docmost, o impacto e as etapas para reproduzir o problema. Oculte nomes de host ou outras informações identificáveis quando forem sensíveis. O mantenedor poderá confirmar o recebimento e combinar com quem relatou o problema o cronograma de correção e divulgação, mas não há garantia de prazo para resposta ou solução.
 
 ## Credenciais locais
 
@@ -33,3 +33,7 @@ A Lei de Proteção de Dados Pessoais da Indonésia, **Lei n.º 27 de 2022 (UU P
 ## Licença
 
 Este projeto é distribuído sob a [Licença MIT](LICENSE).
+
+## Suporte e aviso jurídico
+
+`wydocmost` é fornecido como software de código aberto sob a Licença MIT; consulte [LICENSE](LICENSE) para os termos de garantia e responsabilidade. O mantenedor não garante suporte, resposta a todas as issues ou relatos de vulnerabilidade, correção, nem prazo para resposta ou solução. Esta documentação não é aconselhamento jurídico e não garante que um uso específico esteja em conformidade com qualquer lei. Usuários e organizações são responsáveis por decidir se a CLI é adequada ao seu uso, proteger seus sistemas e credenciais e avaliar suas próprias obrigações legais, inclusive as previstas na UU PDP quando aplicável. Este aviso não pretende renunciar a direitos nem excluir deveres ou responsabilidades que a legislação aplicável não permita renunciar ou excluir.

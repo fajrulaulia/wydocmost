@@ -14,7 +14,7 @@ La CLI nécessite Node.js 20 ou une version ultérieure. Elle se connecte à une
 
 Signalez en privé toute vulnérabilité présumée au responsable du projet. Si le projet est hébergé sur GitHub et que le signalement privé des vulnérabilités est activé, utilisez la fonction **Report a vulnerability** du dépôt. Sinon, utilisez un moyen de contact privé indiqué par le responsable. Ne publiez pas de détails d’exploitation, d’identifiants ni de jetons dans une issue ou discussion publique.
 
-Indiquez la version du paquet concernée, les versions de Node.js et Docmost, l’impact et les étapes de reproduction. Masquez les noms d’hôte ou autres informations identifiantes lorsqu’elles sont sensibles. Le responsable accusera réception et conviendra avec la personne ayant signalé le problème d’un calendrier de correction et de divulgation.
+Indiquez la version du paquet concernée, les versions de Node.js et Docmost, l’impact et les étapes de reproduction. Masquez les noms d’hôte ou autres informations identifiantes lorsqu’elles sont sensibles. Le responsable peut accuser réception et convenir avec la personne ayant signalé le problème d’un calendrier de correction et de divulgation, mais aucun délai de réponse ou de résolution n’est garanti.
 
 ## Identifiants locaux
 
@@ -33,3 +33,7 @@ La loi indonésienne sur la protection des données personnelles, **loi n° 27 d
 ## Licence
 
 Ce projet est distribué sous la [licence MIT](LICENSE).
+
+## Assistance et avis juridique
+
+`wydocmost` est fourni en tant que logiciel open source sous licence MIT ; consultez [LICENSE](LICENSE) pour les conditions de garantie et de responsabilité. Le responsable ne garantit ni assistance, ni réponse à chaque issue ou signalement de vulnérabilité, ni correction, ni délai de réponse ou de résolution. Cette documentation ne constitue pas un conseil juridique et ne garantit pas qu’un usage donné respecte une loi. Les utilisateurs et les organisations doivent déterminer si la CLI convient à leur usage, protéger leurs systèmes et identifiants, et évaluer leurs propres obligations légales, y compris celles prévues par l’UU PDP lorsqu’elle s’applique. Le présent avis ne vise pas à renoncer à des droits ni à exclure des obligations ou responsabilités auxquelles il n’est pas permis de renoncer ou de se soustraire en vertu du droit applicable.
